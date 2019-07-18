@@ -50,8 +50,34 @@ TimeStamp GetTimeStamp() {
 #endif
 }
 
+std::string GetLocalDataTime(void) {
+#ifdef _WIN32
+  {
+    time_t tt = time(NULL);
+    SYSTEMTIME systime;
+    GetLocalTime(&systime);
+
+    struct tm *tm_time = localtime(&tt);
+    char str_time[255] = {0};
+    snprintf(str_time, sizeof(str_time), "%04d-%02d-%02d %02d:%02d:%02d.%03lld",
+             tm_time->tm_year + 1900, tm_time->tm_mon + 1, tm_time->tm_mday,
+             tm_time->tm_hour, tm_time->tm_min, tm_time->tm_sec,
+             (systime.wMilliseconds % 1000));
+    return std::move<std::string>(std::string(str_time));
+  }
+#elif defined(__linux__) || defined(__ANDROID__) || defined(LINUX) || \
+    defined(__QNX__)
+  { return std::string(); }
+#elif defined(__MACH__)
+#include <chrono>
+  { return std::string(); }
+#else
+  { return std::string(); }
+#endif
+}
+
 TimeRegister::TimeRegister(const std::string info, int verbose,
-             const char * file, int line) {
+                           const char *file, int line) {
   info_ = info;
   verbose_ = verbose;
   toc_ = GetTimeStamp();

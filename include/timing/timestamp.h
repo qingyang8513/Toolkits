@@ -11,25 +11,33 @@ namespace Utils {
 
 typedef int64_t TimeStamp;
 
-// get time stamp, in millisecond
-TimeStamp GetTimeStamp();
+/**
+ * Get time stamp, in millisecond
+ * @return time stamp in millisecond
+ */
+TimeStamp GetTimeStamp(void);
+
+/**
+* Get locat data time in formation "yyyy-MM-dd hh:mm:ss.zzz"
+* @return local data time in std::string
+*/
+std::string GetLocalDataTime(void);
 
 class TimeRegister {
  protected:
-  TimeStamp  toc_;
+  TimeStamp toc_;
   std::string info_;
-  const char * file;
+  const char* file;
   int line;
   int verbose_;
 
  public:
-  TimeRegister(const std::string info, int verbose,
-                const char * file, int line);
+  TimeRegister(const std::string info, int verbose, const char* file, int line);
   ~TimeRegister();
 };
 
 #define TIME_REGISTER_VERBOSE(info, verbose) \
-        TimeRegister timer(info, verbose, __FILE__, __LINE__)
+  TimeRegister timer(info, verbose, __FILE__, __LINE__)
 #define TIME_REGISTER(info) TIME_REGISTER_VERBOSE(info, LOG_VERBOSE_LOW)
 
 }  // end of namespace Utils

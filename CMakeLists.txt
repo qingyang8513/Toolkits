@@ -14,6 +14,7 @@ message("config types: ${CMAKE_CONFIGURATION_TYPES}")
 include_directories(
         include
 		include/timing
+		include/json
         src
 )
 
@@ -33,3 +34,4 @@ set(VERSION_HEADER "${CMAKE_SOURCE_DIR}/include/version.h")
 # add projects
 add_subdirectory(src)
 add_subdirectory(example)
+add_subdirectory(example/json)
