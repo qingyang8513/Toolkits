@@ -1,6 +1,8 @@
-//
-// Created by jin.ma on 7/18/2019
-//
+/**
+ * Copyright 2019 all rights reserved
+ * @date 18/Jul/2019
+ * @author jin.ma
+ */
 
 #include <iostream>
 
