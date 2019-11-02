@@ -68,6 +68,22 @@ class ThreadSafeQueue {
     return res;
   }
 
+  std::shared_ptr<T> Front() {
+    std::lock_guard<std::mutex> lk(mut_);
+    if (data_queue_.empty()) {
+      return std::shared_ptr<T>();
+    }
+    return data_queue_.front();
+  }
+
+  std::shared_ptr<T> Back() {
+    std::lock_guard<std::mutex> lk(mut_);
+    if (data_queue_.empty()) {
+      return std::shared_ptr<T>();
+    }
+    return data_queue_.back();
+  }
+
   bool IsEmpty() const {
     std::lock_guard<std::mutex> lk(mut_);
     return data_queue_.empty();
