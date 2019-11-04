@@ -1,13 +1,23 @@
-//
-// Created by jin.ma on 7/18/2019
-//
+/**
+ * Copyright 2019 all rights reserved
+ * @brief
+ * @date 22/Aug/2019
+ * @author jin.ma
+ */
 
-#ifndef TOOLKITS_UTILS_TIMING_TIMESTAMP_H_
-#define TOOLKITS_UTILS_TIMING_TIMESTAMP_H_
+#ifndef TIMING_TIMESTAMP_H_
+#define TIMING_TIMESTAMP_H_
 
 #include <string>
 
 namespace Utils {
+
+#define LOG_VERBOSE_HIGHEST 5
+#define LOG_VERBOSE_HIGH 4
+#define LOG_VERBOSE_NORMAL 3
+#define LOG_VERBOSE_LOW 2
+#define LOG_VERBOSE_LOWEST 1
+#define LOG_VERBOSE_NONE 0
 
 typedef int64_t TimeStamp;
 
@@ -18,18 +28,18 @@ typedef int64_t TimeStamp;
 TimeStamp GetTimeStamp(void);
 
 /**
-* Get locat data time in formation "yyyy-MM-dd hh:mm:ss.zzz"
-* @return local data time in std::string
-*/
+ * Get local data time in formation "yyyy-MM-dd hh:mm:ss.zzz"
+ * @return local data time in std::string
+ */
 std::string GetLocalDataTime(void);
 
 class TimeRegister {
  protected:
-  TimeStamp toc_;
+  TimeStamp expend_;
   std::string info_;
-  const char* file;
-  int line;
   int verbose_;
+  const char* file_;
+  int line_;
 
  public:
   TimeRegister(const std::string info, int verbose, const char* file, int line);
@@ -40,6 +50,6 @@ class TimeRegister {
   TimeRegister timer(info, verbose, __FILE__, __LINE__)
 #define TIME_REGISTER(info) TIME_REGISTER_VERBOSE(info, LOG_VERBOSE_LOW)
 
-}  // end of namespace Utils
+}  // namespace Utils
 
-#endif  // TOOLKITS_UTILS_TIMING_TIMESTAMP_H_
+#endif  // TIMING_TIMESTAMP_H_
