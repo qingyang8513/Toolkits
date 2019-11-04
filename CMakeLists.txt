@@ -15,6 +15,7 @@ include_directories(
         include
 		include/timing
 		include/json
+		include/utils
         src
 )
 
